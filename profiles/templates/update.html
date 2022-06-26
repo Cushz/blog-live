@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{%load static %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+    <div class="text-center alert alert-{{ message.tags }}">
+        {{ message|safe }}
+    </div>
+{% endfor %}
+{% endif %}
+<div class="container mt-3">
+    {% if user.profile.img %}
+    <img src="{{user.profile.img.url}}" class="img-thumbnail rounded-circle" style="width:150px;height:150px;"  alt="NOT YET">
+    {% else %}
+    <img src="/media/default.jpg">
+    {% endif %}
+    <h1 class="display-1">{{user.profile}}</h1>
+    <p class="display-6 text-muted" style="display:inline;">{{user.email}}</p>
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+        {{user_form | crispy}}
+        {{profile_form | crispy}}
+        <button type="Submit" class="btn btn-outline-dark">Update</button>
+        <a class="btn btn-outline-danger" href="{% url 'profile_delete' %}">Delete Profile</a>
+    </form>
+    
+
+{% endblock content %}

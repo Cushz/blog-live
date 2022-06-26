@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+    <div class="text-center alert alert-{{ message.tags }}">
+        {{ message|safe }}
+    </div>
+{% endfor %}
+{% endif %}
+<div class="container mt-3">
+    <img src="{{profile.img.url}}" class="img-thumbnail rounded-circle" style="width:150px;height:150px;"  alt="NOT YET">
+    <h1 class="display-1" style="display:inline;">{{profile.user}}</h1>
+    <p class="display-6 text-muted">{{profile.user.email}}</p>
+    
+
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Search Results:</h1>
+{% for post in object_list %}
+    <div class="card" style="margin:2em;" >
+        <h5 class="card-header"><a href="{% url 'profile_detail' user.id %}"> {{post.author }}</a>
+             {{post.created_on}} 
+             {% if user.is_authenticated %}
+             {% if user.id == post.author_id %}
+             <a href="{% url   'post_delete' post.id %}" class="btn btn-primary" style="float:right;">Delete</a>
+            <a href="{% url 'post_update' post.id %}" class="btn btn-primary " style="float:right; margin-right:1em;">Edit</a>
+            {% endif %}
+            {% endif %}
+        </h5>
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+          <p class="card-text">{{post.content | truncatechars:220}}</p>
+          <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read More</a>
+        </div>
+      </div>
+
+{% endfor %}
+{% endblock content %}
